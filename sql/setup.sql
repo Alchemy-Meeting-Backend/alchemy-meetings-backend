@@ -11,3 +11,7 @@ CREATE TABLE github_users (
   role TEXT DEFAULT('pending')
   -- github TEXT
 );
+
+INSERT INTO github_users (username, email, cohort_id, role) 
+VALUES
+('Elliot Darkness', 'elliot@darkness.com', 1, 'TA');
