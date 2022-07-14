@@ -25,10 +25,13 @@ describe('backend-express-template routes', () => {
       .redirects(1);
   
     expect(res.body).toEqual({
-      login: 'someperson',
+      id: expect.any(String),
+      username: 'someperson',
       email: 'fakeusername@faux.net',
       cohort_id: 4,
-      role: 'student'
+      role: 'student',
+      iat: expect.any(Number),
+      exp: expect.any(Number),
     });
   });
 
