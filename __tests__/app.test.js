@@ -16,7 +16,18 @@ describe('backend-express-template routes', () => {
     expect(res.header.location).toMatch(
       `https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&scope=user&redirect_`
     );
-  })
+  });
+
+  it('should login and redirect user to /api/v1/github/dashboard', async () => {
+    const res = await request
+      .agent(app)
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+  
+    expect(res.body).toEqual({
+      id: 'mock'
+    });
+  });
 
 
   afterAll(() => {

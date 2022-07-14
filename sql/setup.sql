@@ -7,5 +7,7 @@ CREATE TABLE github_users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   username TEXT NOT NULL,
   email TEXT,
-  avatar TEXT
+  cohort_id INT,
+  role TEXT DEFAULT('pending')
+  -- github TEXT
 );
