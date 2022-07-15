@@ -31,6 +31,12 @@ describe('backend-express-template routes', () => {
     const expected = await GithubUser.getById(1);
     expect(res.body).toEqual(expected);
   });
+
+  it('DELETE should delete a user', async () => {
+    const res = await request(app).delete('/api/v1/github/1');
+    expect(res.status).toEqual(200);
+    expect(res.body.id).toEqual('1');
+  });
   afterAll(() => {
     pool.end();
   });
