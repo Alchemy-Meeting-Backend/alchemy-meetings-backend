@@ -2,6 +2,7 @@
 -- The SQL in this file will be executed when you run `npm run setup-db`
 
 DROP TABLE if EXISTS github_users CASCADE;
+DROP TABLE if EXISTS cohorts;
 
 CREATE TABLE github_users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -15,3 +16,14 @@ CREATE TABLE github_users (
 INSERT INTO github_users (username, email, cohort_id, role) 
 VALUES
 ('Elliot Darkness', 'elliot@darkness.com', 1, 'TA');
+
+
+CREATE TABLE cohorts (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  name TEXT NOT NULL
+);
+
+INSERT INTO cohorts(name)
+VALUES
+('feb 2022'),
+('jan 2022');
