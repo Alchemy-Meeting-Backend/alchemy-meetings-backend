@@ -12,12 +12,11 @@ describe('backend-express-template routes', () => {
   });
   
   it('/users should return a list of users', async () => {
-    const res = await request(app).get('/users');
+    const res = await request(app).get('/github');
     const userData = await GithubUser.getAll();
     const expected = await userData.map((user) => {
       return { username: user.username, email: user.email, cohort_id: user.cohort_id, role: user.role };
     });
-    console.log('expected', expected);
     expect(res.body).toEqual(expected);
   });
 
