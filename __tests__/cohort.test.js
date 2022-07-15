@@ -22,6 +22,13 @@ describe('backend-express-template routes', () => {
     ]);
   });
 
+  it('POST/ should create a new cohort', async () => {
+    const res = await request(app).post('/api/v1/cohorts').send({
+      name: 'June 2022',
+    });
+    expect(res.body.name).toEqual('June 2022');
+  });
+
   afterAll(() => {
     pool.end();
   });
