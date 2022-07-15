@@ -29,6 +29,18 @@ describe('backend-express-template routes', () => {
     expect(res.body.name).toEqual('June 2022');
   });
 
+  it('PUT/UPDATE/id should update a cohorts name', async () => {
+    const res = await request(app)
+      .put('/api/v1/cohorts/1')
+      .send({ name: 'December 2022' });
+    expect(res.body.name).toEqual('December 2022');
+  });
+
+  it('GET should return a cohort by id', async () => {
+    const res = await request(app).get('/api/v1/cohorts/1');
+    expect(res.body.name).toEqual('feb 2022');
+  });
+
   afterAll(() => {
     pool.end();
   });
