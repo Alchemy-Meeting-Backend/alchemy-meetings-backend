@@ -8,7 +8,7 @@ describe('backend-express-template routes', () => {
     return setup(pool);
   });
 
-  it.only('GET/ should display a list of zoom rooms', async () => {
+  it('GET/ should display a list of zoom rooms', async () => {
     const res = await request(app).get('/api/v1/zoomrooms');
     expect(res.body.length).toEqual(2);
   });

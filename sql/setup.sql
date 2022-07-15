@@ -4,6 +4,7 @@
 DROP TABLE if EXISTS github_users CASCADE;
 DROP TABLE if EXISTS cohorts CASCADE;
 DROP TABLE if EXISTS zoom_rooms CASCADE;
+DROP TABLE if EXISTS cohorts_zoom_rooms CASCADE;
 
 CREATE TABLE github_users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -39,4 +40,19 @@ CREATE TABLE zoom_rooms (
 INSERT INTO zoom_rooms(room_type, room_name, join_link)
 VALUES
 ('metal', 'Cobalt', 'http whatever'),
-('classroom', 'Goodland', 'http whatever2');
+('classroom', 'Goodland', 'http whatever2'),
+('metal', 'Copper', 'httpsss');
+
+CREATE TABLE cohorts_zoom_rooms (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  room_id BIGINT,
+  cohort_id BIGINT,
+  FOREIGN KEY(room_id) REFERENCES zoom_rooms(id),
+  FOREIGN KEY(cohort_id) REFERENCES cohorts(id)
+);
+
+INSERT INTO cohorts_zoom_rooms(room_id, cohort_id)
+VALUES
+(1, 1),
+(2, 1),
+(3, 1);
