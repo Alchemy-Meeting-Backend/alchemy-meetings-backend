@@ -2,7 +2,8 @@
 -- The SQL in this file will be executed when you run `npm run setup-db`
 
 DROP TABLE if EXISTS github_users CASCADE;
-DROP TABLE if EXISTS cohorts;
+DROP TABLE if EXISTS cohorts CASCADE;
+DROP TABLE if EXISTS zoom_rooms CASCADE;
 
 CREATE TABLE github_users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
