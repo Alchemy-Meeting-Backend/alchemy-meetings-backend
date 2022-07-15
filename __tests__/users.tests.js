@@ -11,7 +11,7 @@ describe('backend-express-template routes', () => {
     return setup(pool);
   });
   
-  it('/users should return a list of users', async () => {
+  it('GET /github should return a list of users', async () => {
     const res = await request(app).get('/api/v1/github');
     const userData = await GithubUser.getAll();
     const expected = await userData.map((user) => {
@@ -20,7 +20,18 @@ describe('backend-express-template routes', () => {
     expect(res.body).toEqual(expected);
   });
 
-  
+  it('GET /github/:id should get a user', async () => {
+    const res = await request(app).get('/api/v1/github/1');
+    const expected = {
+      id: '1',
+      username: 'Elliot Darkness',
+      email: 'elliot@darkness.com',
+      cohort_id: 1,
+      role: 'TA'
+    };
+    expect(res.body).toEqual(expected);
+  });
+
   afterAll(() => {
     pool.end();
   });
