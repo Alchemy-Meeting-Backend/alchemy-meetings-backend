@@ -37,6 +37,16 @@ describe('backend-express-template routes', () => {
     expect(res.status).toEqual(200);
     expect(res.body.id).toEqual('1');
   });
+
+  it('GET /github should return a list of pending users', async () => {
+    const res = await request(app).get('/api/v1/github/pending');
+    const userData = await GithubUser.getAllPending();
+    const expected = await userData.map((user) => {
+      return { id: user.id, username: user.username, email: user.email, cohort_id: user.cohort_id, role: user.role };
+    });
+    expect(res.body).toEqual(expected);
+  });
+
   afterAll(() => {
     pool.end();
   });
