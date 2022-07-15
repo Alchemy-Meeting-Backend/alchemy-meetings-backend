@@ -12,11 +12,11 @@ describe('backend-express-template routes', () => {
     const res = await request(app).get('/api/v1/cohorts');
     expect(res.body).toEqual([
       {
-        id: 1,
+        id: '1',
         name: 'feb 2022',
       },
       {
-        id: 2,
+        id: '2',
         name: 'jan 2022',
       },
     ]);
