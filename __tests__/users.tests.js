@@ -22,13 +22,7 @@ describe('backend-express-template routes', () => {
 
   it('GET /github/:id should get a user', async () => {
     const res = await request(app).get('/api/v1/github/1');
-    const expected = {
-      id: '1',
-      username: 'Elliot Darkness',
-      email: 'elliot@darkness.com',
-      cohort_id: 1,
-      role: 'TA'
-    };
+    const expected = await GithubUser.getById(1);
     expect(res.body).toEqual(expected);
   });
 
