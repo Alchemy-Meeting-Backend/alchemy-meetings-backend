@@ -10,7 +10,7 @@ describe('backend-express-template routes', () => {
 
   it('GET/ should display a list of zoom rooms', async () => {
     const res = await request(app).get('/api/v1/zoomrooms');
-    expect(res.body.length).toEqual(2);
+    expect(res.body.length).toEqual(3);
   });
 
 
