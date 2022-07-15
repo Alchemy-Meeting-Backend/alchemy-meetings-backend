@@ -26,6 +26,11 @@ describe('backend-express-template routes', () => {
     expect(res.body).toEqual(expected);
   });
 
+  it('PUT should update a users cohort_id', async () => {
+    const res = await request(app).put('/api/v1/github/1').send({ cohort_id: 2 });
+    const expected = await GithubUser.getById(1);
+    expect(res.body).toEqual(expected);
+  });
   afterAll(() => {
     pool.end();
   });
