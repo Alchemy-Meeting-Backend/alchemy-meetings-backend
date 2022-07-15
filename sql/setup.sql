@@ -27,3 +27,15 @@ INSERT INTO cohorts(name)
 VALUES
 ('feb 2022'),
 ('jan 2022');
+
+CREATE TABLE zoom_rooms (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  room_type TEXT NOT NULL,
+  room_name TEXT NOT NULL,
+  join_link TEXT
+);
+
+INSERT INTO zoom_rooms(room_type, room_name, join_link)
+VALUES
+('metal', 'Cobalt', 'http whatever'),
+('classroom', 'Goodland', 'http whatever2');
