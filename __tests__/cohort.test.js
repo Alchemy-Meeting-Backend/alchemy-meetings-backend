@@ -13,17 +13,21 @@ describe('backend-express-template routes', () => {
     expect(res.body).toEqual([
       {
         id: '1',
+        name: 'pending approval',
+        rooms: []
+      },
+      {
+        id: '2',
         name: 'feb 2022',
         rooms: [
           
           'Cobalt',
           'Goodland',
           'Copper'
-          
         ]
       },
       {
-        id: '2',
+        id: '3',
         name: 'jan 2022',
         rooms: []
       },
@@ -46,7 +50,7 @@ describe('backend-express-template routes', () => {
 
   it('GET should return a cohort by id', async () => {
     const res = await request(app).get('/api/v1/cohorts/1');
-    expect(res.body.name).toEqual('feb 2022');
+    expect(res.body.name).toEqual('pending approval');
   });
 
   // it('GET should return all the zoom rooms and cohorts', async () => {
