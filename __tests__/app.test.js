@@ -28,7 +28,7 @@ describe('backend-express-template routes', () => {
       id: expect.any(String),
       username: 'someperson',
       email: 'fakeusername@faux.net',
-      cohort_id: 4,
+      cohort_id: 1,
       role: 'student',
       iat: expect.any(Number),
       exp: expect.any(Number),
