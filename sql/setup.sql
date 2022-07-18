@@ -27,6 +27,7 @@ CREATE TABLE cohorts (
 
 INSERT INTO cohorts(name)
 VALUES
+('pending approval'),
 ('feb 2022'),
 ('jan 2022');
 
