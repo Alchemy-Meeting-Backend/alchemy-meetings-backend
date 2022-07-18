@@ -27,6 +27,7 @@ CREATE TABLE cohorts (
 
 INSERT INTO cohorts(name)
 VALUES
+('pending approval'),
 ('feb 2022'),
 ('jan 2022');
 
@@ -53,6 +54,6 @@ CREATE TABLE cohorts_zoom_rooms (
 
 INSERT INTO cohorts_zoom_rooms(room_id, cohort_id)
 VALUES
-(1, 1),
-(2, 1),
-(3, 1);
+(1, 2),
+(2, 2),
+(3, 2);
