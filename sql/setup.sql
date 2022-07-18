@@ -6,18 +6,6 @@ DROP TABLE if EXISTS cohorts CASCADE;
 DROP TABLE if EXISTS zoom_rooms CASCADE;
 DROP TABLE if EXISTS cohorts_zoom_rooms CASCADE;
 
-CREATE TABLE github_users (
-  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  username TEXT NOT NULL,
-  email TEXT,
-  cohort_id INT,
-  role TEXT DEFAULT('pending')
-  -- github TEXT
-);
-
-INSERT INTO github_users (username, email, cohort_id, role) 
-VALUES
-('Elliot Darkness', 'elliot@darkness.com', 1, 'TA');
 
 
 CREATE TABLE cohorts (
@@ -43,6 +31,21 @@ VALUES
 ('metal', 'Cobalt', 'http whatever'),
 ('classroom', 'Goodland', 'http whatever2'),
 ('metal', 'Copper', 'httpsss');
+
+CREATE TABLE github_users (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  username TEXT NOT NULL,
+  email TEXT,
+  cohort_id INT,
+  role TEXT,
+  -- github TEXT
+  FOREIGN KEY(cohort_id) REFERENCES cohorts(id)
+);
+
+INSERT INTO github_users (username, email, cohort_id, role) 
+VALUES
+('Elliot Darkness', 'elliot@darkness.com', 2, 'TA'),
+('Susan Brightness', 'susan@brightness.com', 1, 'Student');
 
 CREATE TABLE cohorts_zoom_rooms (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
