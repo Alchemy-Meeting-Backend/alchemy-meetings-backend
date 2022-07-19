@@ -13,6 +13,13 @@ describe('backend-express-template routes', () => {
     expect(res.body.length).toEqual(3);
   });
 
+  it.only('GET/ should display a list of zoomrooms by cohort id', async () => {
+    const res = await request(app).get('/api/v1/zoomrooms');
+    expect(res.body).toEqual({
+      id: '1',
+      zoomroom: 'Goodland',
+    });
+  });
 
   afterAll(() => {
     pool.end();

@@ -58,5 +58,5 @@ CREATE TABLE cohorts_zoom_rooms (
 INSERT INTO cohorts_zoom_rooms(room_id, cohort_id)
 VALUES
 (1, 2),
-(2, 2),
+(2, 3),
 (3, 2);
