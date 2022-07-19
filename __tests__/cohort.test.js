@@ -12,21 +12,39 @@ describe('backend-express-template routes', () => {
     const res = await request(app).get('/api/v1/cohorts');
     expect(res.body).toEqual([
       {
-        id: '1',
-        name: 'pending approval',
-        rooms: [],
+        'id': '1',
+        'name': 'pending approval',
+        'rooms':[],
       },
       {
-        id: '2',
-        name: 'feb 2022',
-        rooms: ['Cobalt', 'Copper'],
+        'id': '2',
+        'name': 'staff',
+        'rooms':[
+          'Goodland',
+          'Copper',
+          'Cobalt',
+        ],
       },
       {
-        id: '3',
-        name: 'jan 2022',
-        rooms: ['Goodland'],
+        'id': '3',
+        'name': 'alumni',
+        'rooms':[],
       },
-    ]);
+      {
+        'id': '4',
+        'name': 'feb 2022',
+        'rooms':[
+          'Goodland',
+          'Cobalt',
+        ],
+      },
+      {
+        'id': '5',
+        'name': 'jan 2022',
+        'rooms':[],
+      },
+    ]
+    );
   });
 
   it('POST/ should create a new cohort', async () => {
