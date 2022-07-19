@@ -6,8 +6,6 @@ DROP TABLE if EXISTS cohorts CASCADE;
 DROP TABLE if EXISTS zoom_rooms CASCADE;
 DROP TABLE if EXISTS cohorts_zoom_rooms CASCADE;
 
-
-
 CREATE TABLE cohorts (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   name TEXT NOT NULL
@@ -16,6 +14,8 @@ CREATE TABLE cohorts (
 INSERT INTO cohorts(name)
 VALUES
 ('pending approval'),
+('staff'),
+('alumni'),
 ('feb 2022'),
 ('jan 2022');
 
@@ -58,5 +58,7 @@ CREATE TABLE cohorts_zoom_rooms (
 INSERT INTO cohorts_zoom_rooms(room_id, cohort_id)
 VALUES
 (1, 2),
-(2, 3),
-(3, 2);
+(2, 2),
+(3, 2),
+(1, 4),
+(2, 4);
