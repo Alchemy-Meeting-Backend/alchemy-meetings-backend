@@ -14,22 +14,17 @@ describe('backend-express-template routes', () => {
       {
         id: '1',
         name: 'pending approval',
-        rooms: []
+        rooms: [],
       },
       {
         id: '2',
         name: 'feb 2022',
-        rooms: [
-          
-          'Cobalt',
-          'Goodland',
-          'Copper'
-        ]
+        rooms: ['Cobalt', 'Copper'],
       },
       {
         id: '3',
         name: 'jan 2022',
-        rooms: []
+        rooms: ['Goodland'],
       },
     ]);
   });
