@@ -2,7 +2,6 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
-const GithubUser = require('../lib/models/GithubUser');
 
 jest.mock('../lib/services/github'); 
 
@@ -13,10 +12,11 @@ describe('backend-express-template routes', () => {
 
   const agent = request.agent(app);
 
-  it('GET/ should display a list of zoomrooms by a users cohort id', async () => {
+  it.only('GET/ should display a list of zoomrooms by a users cohort id', async () => {
     const userResponse = await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
+    console.log(userResponse, 'USER RESP');
     
     await agent
       .put(`/api/v1/github/${userResponse.body.id}`)
