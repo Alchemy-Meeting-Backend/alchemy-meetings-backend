@@ -60,6 +60,25 @@ describe('backend-express-template routes', () => {
     expect(res.body).toEqual([{ 'id': '1', 'room_name': 'Cobalt' }, { 'id': '2', 'room_name': 'Goodland' }, { 'id': '3', 'room_name': 'Copper' }]);
   });
 
+  it('GET/ should display a list of all community zoomrooms for alumni, who have a cohort id of 3', async () => {
+    const userResponse = await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+    
+    await agent
+      .put(`/api/v1/github/${userResponse.body.id}`)
+      .send({ cohort_id: 3 });
+
+    await agent
+      .delete('/api/v1/github/sessions');
+
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+    const res = await agent.get('/api/v1/zoomrooms');
+    expect(res.body).toEqual([]);
+  });
+
   afterAll(() => {
     pool.end();
   });
