@@ -29,7 +29,7 @@ describe('backend-express-template routes', () => {
   //   expect(res.body).toEqual(expected);
   // });
 
-  it.only('GET /github should return a list of users with authorizeAdmin', async () => {
+  it('GET /github should return a list of users with authorizeAdmin', async () => {
     const userResponse = await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -61,7 +61,22 @@ describe('backend-express-template routes', () => {
   });
 
   it('GET /github/:id should get a user', async () => {
-    const res = await request(app).get('/api/v1/github/1');
+    const userResponse = await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+  
+    await agent
+      .put(`/api/v1/github/${userResponse.body.id}`)
+      .send({ cohort_id: 2 });
+
+    await agent
+      .delete('/api/v1/github/sessions');
+
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+
+    const res = await agent.get('/api/v1/github/1');
     const expected = await GithubUser.getById(1);
     expect(res.body).toEqual(expected);
   });
