@@ -13,12 +13,7 @@ describe('backend-express-template routes', () => {
 
   const agent = request.agent(app);
 
-  xit('GET/ should display a list of zoom rooms', async () => {
-    const res = await request(app).get('/api/v1/zoomrooms');
-    expect(res.body.length).toEqual(3);
-  });
-
-  it('GET/ should display a list of zoomrooms by cohort id', async () => {
+  it('GET/ should display a list of zoomrooms by a users cohort id', async () => {
     const userResponse = await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -29,12 +24,21 @@ describe('backend-express-template routes', () => {
 
     await agent
       .delete('/api/v1/github/sessions');
-      
+
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
     const res = await agent.get('/api/v1/zoomrooms');
     expect(res.body).toEqual([{ 'id': '1', 'room_name': 'Cobalt' }, { 'id': '3', 'room_name': 'Copper' }]);
+  });
+
+  it('GET/ should display no zoomrooms for pending users, who have a cohort id of 1', async () => {
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+      
+    const res = await agent.get('/api/v1/zoomrooms');
+    expect(res.body).toEqual([]);
   });
 
   afterAll(() => {
