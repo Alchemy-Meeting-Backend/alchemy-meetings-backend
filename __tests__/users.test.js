@@ -11,8 +11,42 @@ describe('backend-express-template routes', () => {
     return setup(pool);
   });
 
-  it('GET /github should return a list of users', async () => {
-    const res = await request(app).get('/api/v1/github');
+  const agent = request.agent(app);
+
+
+  // it.only('GET /github should return a list of users', async () => {
+  //   const res = await request(app).get('/api/v1/github');
+  //   const userData = await GithubUser.getAll();
+  //   const expected = await userData.map((user) => {
+  //     return {
+  //       id: user.id,
+  //       username: user.username,
+  //       email: user.email,
+  //       cohort_id: user.cohort_id,
+  //       role: user.role,
+  //     };
+  //   });
+  //   expect(res.body).toEqual(expected);
+  // });
+
+  it.only('GET /github should return a list of users with authorizeAdmin', async () => {
+    const userResponse = await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+  
+    await agent
+      .put(`/api/v1/github/${userResponse.body.id}`)
+      .send({ cohort_id: 2 });
+
+    await agent
+      .delete('/api/v1/github/sessions');
+
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+    
+    const res = await agent.get('/api/v1/github');
+
     const userData = await GithubUser.getAll();
     const expected = await userData.map((user) => {
       return {
