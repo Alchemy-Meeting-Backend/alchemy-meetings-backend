@@ -14,20 +14,12 @@ describe('User Tests', () => {
   const agent = request.agent(app);
 
 
-  // it.only('GET /github should return a list of users', async () => {
-  //   const res = await request(app).get('/api/v1/github');
-  //   const userData = await GithubUser.getAll();
-  //   const expected = await userData.map((user) => {
-  //     return {
-  //       id: user.id,
-  //       username: user.username,
-  //       email: user.email,
-  //       cohort_id: user.cohort_id,
-  //       role: user.role,
-  //     };
-  //   });
-  //   expect(res.body).toEqual(expected);
-  // });
+  it('GET /github denies access to unauthenticated users', async () => {
+    const res = await request(app).get('/api/v1/github');
+    expect(res.status).toEqual(401);
+    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+
+  });
 
   it('GET /github should return a list of users with authorizeAdmin', async () => {
     const userResponse = await agent
