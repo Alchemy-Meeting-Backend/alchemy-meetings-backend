@@ -6,7 +6,7 @@ const GithubUser = require('../lib/models/GithubUser');
 
 jest.mock('../lib/services/github');
 
-describe('backend-express-template routes', () => {
+describe('User Tests', () => {
   beforeEach(() => {
     return setup(pool);
   });
@@ -111,13 +111,6 @@ describe('backend-express-template routes', () => {
           cohort_id: 1,
           role: 'Student',
         },
-        // {
-        //   id: expect.any(String),
-        //   username: expect.any(String),
-        //   email: expect.any(String),
-        //   cohort_id: 1,
-        //   role: expect.any(String),
-        // },
       ])
     );
   });

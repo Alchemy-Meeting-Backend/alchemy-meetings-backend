@@ -5,14 +5,14 @@ const app = require('../lib/app');
 
 jest.mock('../lib/services/github'); 
 
-describe('backend-express-template routes', () => {
+describe('Zoom Room Tests', () => {
   beforeEach(() => {
     return setup(pool);
   });
 
   const agent = request.agent(app);
 
-  it.only('GET/ should display a list of zoomrooms by a users cohort id', async () => {
+  it('GET/ should display a list of zoomrooms by a users cohort id', async () => {
     const userResponse = await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -38,10 +38,20 @@ describe('backend-express-template routes', () => {
   });
 
   it('GET/ should display no zoomrooms for pending users, who have a cohort id of 1', async () => {
-    await agent
+    const userResponse = await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
 
+    await agent
+      .put(`/api/v1/github/${userResponse.body.id}`)
+      .send({ cohort_id: 1 });
+
+    await agent
+      .delete('/api/v1/github/sessions');
+
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
     const res = await agent.get('/api/v1/zoomrooms');
     expect(res.body).toEqual([]);
   });

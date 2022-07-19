@@ -5,7 +5,7 @@ const app = require('../lib/app');
 
 jest.mock('../lib/services/github'); 
 
-describe('backend-express-template routes', () => {
+describe('Github OAuth Tests', () => {
   beforeEach(() => {
     return setup(pool);
   });
