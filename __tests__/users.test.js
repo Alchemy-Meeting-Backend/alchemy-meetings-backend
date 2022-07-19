@@ -82,9 +82,14 @@ describe('backend-express-template routes', () => {
   });
 
   it('PUT should update a users cohort_id', async () => {
-    const res = await request(app)
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+    
+    const res = await agent
       .put('/api/v1/github/1')
-      .send({ cohort_id: 2 });
+      .send({ cohort_id: 3, role: 'student' });
+
     const expected = await GithubUser.getById(1);
     expect(res.body).toEqual(expected);
   });
