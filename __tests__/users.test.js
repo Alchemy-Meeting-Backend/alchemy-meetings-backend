@@ -86,7 +86,7 @@ describe('User Tests', () => {
           id: '2',
           username: 'Susan Brightness',
           email: 'susan@brightness.com',
-          cohort_id: 1,
+          cohort_id: '1',
           role: 'Student',
         },
       ])
