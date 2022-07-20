@@ -149,6 +149,13 @@ describe('Cohort Tests', () => {
     expect(res.body.message).toEqual('You must be signed in to continue!!??!');
   });
 
+
+  // it('GET should deny access to non-authorized users trying to see a cohort by id', async () => {
+  //   const res = await request(app).get('/api/v1/cohorts/1');
+  //   expect(res.status).toEqual(403);
+  //   expect(res.body.message).toEqual('You cannot see this page!');
+  // });
+
   afterAll(() => {
     pool.end();
   });

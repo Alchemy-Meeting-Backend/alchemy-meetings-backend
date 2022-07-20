@@ -26,6 +26,24 @@ describe('Zoom Room Tests', () => {
     ]);
   });
 
+
+  it('GET/ should deny access to non-authenticated users attempting to see a list of zoomrooms by a users cohort id', async () => {
+    const res = await request(app).get('/api/v1/zoomrooms');
+
+    expect(res.status).toEqual(401);
+    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+  });
+
+
+  // it('GET/ should deny access to non-authorized users try to see a list of zoomrooms by a users cohort id', async () => {
+  //   const res = await request(app).get('/api/v1/zoomrooms');
+
+  //   expect(res.status).toEqual(403);
+  //   expect(res.body.message).toEqual('You cannot see this page!');
+  // });
+
+
+
   it('GET/ should display no zoomrooms for pending users, who have a cohort id of 1', async () => {
     const userResponse = await agent
       .get('/api/v1/github/callback?code=42')
