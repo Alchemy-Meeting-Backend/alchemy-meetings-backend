@@ -13,14 +13,6 @@ describe('User Tests', () => {
 
   const agent = request.agent(app);
 
-
-  it('GET /github denies access to unauthenticated users', async () => {
-    const res = await request(app).get('/api/v1/github');
-    expect(res.status).toEqual(401);
-    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
-
-  });
-
   it('GET /github should return a list of users with authorizeAdmin', async () => {
     await agent
       .get('/api/v1/github/callback?code=42')
@@ -41,7 +33,23 @@ describe('User Tests', () => {
     expect(res.body).toEqual(expected);
   });
 
-  it('GET /github/:id should get a user', async () => {
+
+  it('GET /github denies access to unauthenticated users trying to see list of all users', async () => {
+    const res = await request(app).get('/api/v1/github');
+    expect(res.status).toEqual(401);
+    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+
+  });
+
+  // it('GET /github denies access to unauthorized users trying to see list of all users', async () => {
+  //   const res = await request(app).get('/api/v1/github');
+  //   expect(res.status).toEqual(403);
+  //   expect(res.body.message).toEqual('You cannot see this page!');
+
+  // });
+
+
+  it('GET /github/:id should get a particular user', async () => {
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -50,6 +58,20 @@ describe('User Tests', () => {
     const expected = await GithubUser.getById(1);
     expect(res.body).toEqual(expected);
   });
+
+
+  it('GET /github/:id should deny access to non-authenticated users trying to get a particular user', async () => {
+    const res = await request(app).get('/api/v1/github/1');
+    expect(res.status).toEqual(401);
+    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+  });
+
+  // it('GET /github/:id should deny access to non-authorized users trying to get a particular user', async () => {
+  //   const res = await request(app).get('/api/v1/github/1');
+  //   expect(res.status).toEqual(403);
+  //   expect(res.body.message).toEqual('You cannot see this page!');
+  // });
+
 
   it('PUT should update a users cohort_id', async () => {
     await agent
