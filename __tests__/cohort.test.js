@@ -57,6 +57,15 @@ describe('Cohort Tests', () => {
     );
   });
 
+
+  it('GET/ should restrict access to non-authenticated users', async () => {
+    const res = await request(app).get('/api/v1/cohorts');
+
+    expect(res.status).toEqual(401);
+    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+  });
+
+
   it('POST/ should create a new cohort', async () => {
     await agent
       .get('/api/v1/github/callback?code=42')
