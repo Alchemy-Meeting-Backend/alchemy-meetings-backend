@@ -87,13 +87,21 @@ describe('User Tests', () => {
   });
 
   it('DELETE should delete a user', async () => {
-    const res = await request(app).delete('/api/v1/github/1');
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+
+    const res = await agent.delete('/api/v1/github/1');
     expect(res.status).toEqual(200);
     expect(res.body.id).toEqual('1');
   });
 
   it('GET /github should return a list of pending users', async () => {
-    const res = await request(app).get('/api/v1/github/cohorts/1');
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+
+    const res = await agent.get('/api/v1/github/cohorts/1');
     expect(res.body).toEqual(
       expect.arrayContaining([
         {
