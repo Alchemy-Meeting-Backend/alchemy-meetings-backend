@@ -36,8 +36,8 @@ CREATE TABLE github_users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   username TEXT NOT NULL,
   email TEXT,
-  cohort_id INT,
-  role TEXT,
+  cohort_id BIGINT DEFAULT 1,
+  role TEXT DEFAULT 'student',
   -- github TEXT
   FOREIGN KEY(cohort_id) REFERENCES cohorts(id)
 );
