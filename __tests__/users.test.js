@@ -86,6 +86,25 @@ describe('User Tests', () => {
     expect(res.body).toEqual(expected);
   });
 
+
+  it('PUT should deny access to non-authenticated users trying to update a users cohort_id', async () => {
+    const res = await request(app)
+      .put('/api/v1/github/1')
+      .send({ cohort_id: 3, role: 'student' });
+
+    expect(res.status).toEqual(401);
+    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+  });
+
+  // it('PUT should deny access to non-authorized users trying to update a users cohort_id', async () => {
+  //   const res = await request(app)
+  //     .put('/api/v1/github/1')
+  //     .send({ cohort_id: 3, role: 'student' });
+
+  //   expect(res.status).toEqual(403);
+  //   expect(res.body.message).toEqual('You cannot see this page!');
+  // });
+
   it('DELETE should delete a user', async () => {
     await agent
       .get('/api/v1/github/callback?code=42')
