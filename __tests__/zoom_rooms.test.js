@@ -13,21 +13,10 @@ describe('Zoom Room Tests', () => {
   const agent = request.agent(app);
 
   it('GET/ should display a list of zoomrooms by a users cohort id', async () => {
-    const userResponse = await agent
-      .get('/api/v1/github/callback?code=42')
-      .redirects(1);
-  
-    await agent
-      .put(`/api/v1/github/${userResponse.body.id}`)
-      .send({ cohort_id: 2 });
-
-    await agent
-      .delete('/api/v1/github/sessions');
-
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
-        
+      
     const res = await agent.get('/api/v1/zoomrooms');
 
     expect(res.body).toEqual([

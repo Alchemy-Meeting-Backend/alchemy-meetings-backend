@@ -22,17 +22,6 @@ describe('User Tests', () => {
   });
 
   it('GET /github should return a list of users with authorizeAdmin', async () => {
-    const userResponse = await agent
-      .get('/api/v1/github/callback?code=42')
-      .redirects(1);
-  
-    await agent
-      .put(`/api/v1/github/${userResponse.body.id}`)
-      .send({ cohort_id: 2 });
-
-    await agent
-      .delete('/api/v1/github/sessions');
-
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -53,17 +42,6 @@ describe('User Tests', () => {
   });
 
   it('GET /github/:id should get a user', async () => {
-    const userResponse = await agent
-      .get('/api/v1/github/callback?code=42')
-      .redirects(1);
-  
-    await agent
-      .put(`/api/v1/github/${userResponse.body.id}`)
-      .send({ cohort_id: 2 });
-
-    await agent
-      .delete('/api/v1/github/sessions');
-
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
