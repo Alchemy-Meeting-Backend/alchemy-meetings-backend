@@ -17,6 +17,7 @@ describe('Cohort Tests', () => {
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
+    
     const res = await agent.get('/api/v1/cohorts');
 
     expect(res.body).toEqual([
