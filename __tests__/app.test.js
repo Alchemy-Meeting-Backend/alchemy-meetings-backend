@@ -5,7 +5,7 @@ const app = require('../lib/app');
 
 jest.mock('../lib/services/github'); 
 
-describe('backend-express-template routes', () => {
+describe('Github OAuth Tests', () => {
   beforeEach(() => {
     return setup(pool);
   });
@@ -18,7 +18,7 @@ describe('backend-express-template routes', () => {
     );
   });
 
-  it('should login and redirect user to /api/v1/github/dashboard', async () => {
+  it('should login and redirect user to /api/v1/github/dashboard and creates user with cohort id of 2', async () => {
     const res = await request
       .agent(app)
       .get('/api/v1/github/callback?code=42')
@@ -28,7 +28,7 @@ describe('backend-express-template routes', () => {
       id: expect.any(String),
       username: 'someperson',
       email: 'fakeusername@faux.net',
-      cohort_id: 1,
+      cohort_id: '2',
       role: 'student',
       iat: expect.any(Number),
       exp: expect.any(Number),

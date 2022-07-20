@@ -6,13 +6,28 @@ const GithubUser = require('../lib/models/GithubUser');
 
 jest.mock('../lib/services/github');
 
-describe('backend-express-template routes', () => {
+describe('User Tests', () => {
   beforeEach(() => {
     return setup(pool);
   });
 
-  it('GET /github should return a list of users', async () => {
+  const agent = request.agent(app);
+
+
+  it('GET /github denies access to unauthenticated users', async () => {
     const res = await request(app).get('/api/v1/github');
+    expect(res.status).toEqual(401);
+    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+
+  });
+
+  it('GET /github should return a list of users with authorizeAdmin', async () => {
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+    
+    const res = await agent.get('/api/v1/github');
+
     const userData = await GithubUser.getAll();
     const expected = await userData.map((user) => {
       return {
@@ -27,43 +42,53 @@ describe('backend-express-template routes', () => {
   });
 
   it('GET /github/:id should get a user', async () => {
-    const res = await request(app).get('/api/v1/github/1');
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+
+    const res = await agent.get('/api/v1/github/1');
     const expected = await GithubUser.getById(1);
     expect(res.body).toEqual(expected);
   });
 
   it('PUT should update a users cohort_id', async () => {
-    const res = await request(app)
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+    
+    const res = await agent
       .put('/api/v1/github/1')
-      .send({ cohort_id: 2 });
+      .send({ cohort_id: 3, role: 'student' });
+
     const expected = await GithubUser.getById(1);
     expect(res.body).toEqual(expected);
   });
 
   it('DELETE should delete a user', async () => {
-    const res = await request(app).delete('/api/v1/github/1');
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+
+    const res = await agent.delete('/api/v1/github/1');
     expect(res.status).toEqual(200);
     expect(res.body.id).toEqual('1');
   });
 
   it('GET /github should return a list of pending users', async () => {
-    const res = await request(app).get('/api/v1/github/cohorts/1');
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+
+    const res = await agent.get('/api/v1/github/cohorts/1');
     expect(res.body).toEqual(
       expect.arrayContaining([
         {
           id: '2',
           username: 'Susan Brightness',
           email: 'susan@brightness.com',
-          cohort_id: 1,
+          cohort_id: '1',
           role: 'Student',
         },
-        // {
-        //   id: expect.any(String),
-        //   username: expect.any(String),
-        //   email: expect.any(String),
-        //   cohort_id: 1,
-        //   role: expect.any(String),
-        // },
       ])
     );
   });
