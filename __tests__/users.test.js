@@ -13,7 +13,7 @@ describe('User Tests', () => {
 
   const agent = request.agent(app);
 
-  it('GET /github should return a list of users with authorizeAdmin', async () => {
+  it('GET /github should return a list of users for admin users', async () => {
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -114,6 +114,20 @@ describe('User Tests', () => {
     expect(res.status).toEqual(200);
     expect(res.body.id).toEqual('1');
   });
+
+  it('DELETE should deny access to non-authenticated users trying to delete a user', async () => {
+    const res = await request(app).delete('/api/v1/github/1');
+    expect(res.status).toEqual(401);
+    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+  });
+
+
+  // it('DELETE should deny access to non-authorized users trying to delete a user', async () => {
+  //   const res = await request(app).delete('/api/v1/github/1');
+  //   expect(res.status).toEqual(403);
+  //   expect(res.body.message).toEqual('You cannot see this page!');
+  // });
+
 
   it('GET /github should return a list of pending users', async () => {
     await agent
