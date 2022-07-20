@@ -18,7 +18,7 @@ describe('Github OAuth Tests', () => {
     );
   });
 
-  it('should login and redirect user to /api/v1/github/dashboard and creates user with cohort id of 1', async () => {
+  it('should login and redirect user to /api/v1/github/dashboard and creates user with cohort id of 2', async () => {
     const res = await request
       .agent(app)
       .get('/api/v1/github/callback?code=42')
@@ -28,7 +28,7 @@ describe('Github OAuth Tests', () => {
       id: expect.any(String),
       username: 'someperson',
       email: 'fakeusername@faux.net',
-      cohort_id: '1',
+      cohort_id: '2',
       role: 'student',
       iat: expect.any(Number),
       exp: expect.any(Number),
