@@ -1,6 +1,7 @@
 # Alchemeetings BE
 
-
+<img src="https://user-images.githubusercontent.com/97058097/180042680-3cb4f32a-1e43-499b-a45f-ce73a69b305d.png" 
+     style="height: 200px; width: 200px;" />
 
 ## DEV Team:
 - Beth Melesse https://www.linkedin.com/in/bethmel/
