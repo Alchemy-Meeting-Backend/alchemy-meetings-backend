@@ -65,6 +65,13 @@ describe('Cohort Tests', () => {
     expect(res.body.message).toEqual('You must be signed in to continue!!??!');
   });
 
+  // it('GET/ should restrict access to non-authorized users', async () => {
+  //   const res = await request(app).get('/api/v1/cohorts');
+
+  //   expect(res.status).toEqual(401);
+  //   expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+  // });
+
 
   it('POST/ should create a new cohort', async () => {
     await agent
@@ -75,6 +82,14 @@ describe('Cohort Tests', () => {
       name: 'June 2022',
     });
     expect(res.body.name).toEqual('June 2022');
+  });
+
+  it('POST/ should denying access to non-authenticated user trying to create a new cohort', async () => {
+    const res = await request(app).post('/api/v1/cohorts').send({
+      name: 'June 2022',
+    });
+    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+    expect(res.status).toEqual(401);
   });
 
   it('PUT/UPDATE/id should update a cohorts name', async () => {
