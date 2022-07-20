@@ -12,7 +12,7 @@ describe('Zoom Room Tests', () => {
 
   const agent = request.agent(app);
 
-  it('GET/ should display a list of zoomrooms by a users cohort id', async () => {
+  it('GET/ should display a list of zoomrooms associated with a users cohort id for authenticated users', async () => {
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -35,15 +35,6 @@ describe('Zoom Room Tests', () => {
   });
 
 
-  // it('GET/ should deny access to non-authorized users try to see a list of zoomrooms by a users cohort id', async () => {
-  //   const res = await request(app).get('/api/v1/zoomrooms');
-
-  //   expect(res.status).toEqual(403);
-  //   expect(res.body.message).toEqual('You cannot see this page!');
-  // });
-
-
-
   it('GET/ should display no zoomrooms for pending users, who have a cohort id of 1', async () => {
     const userResponse = await agent
       .get('/api/v1/github/callback?code=42')
@@ -63,6 +54,7 @@ describe('Zoom Room Tests', () => {
     expect(res.body).toEqual([]);
   });
 
+
   it('GET/ should display a list of all zoomrooms for staff, who have a cohort id of 2', async () => {
     const userResponse = await agent
       .get('/api/v1/github/callback?code=42')
@@ -81,6 +73,7 @@ describe('Zoom Room Tests', () => {
     const res = await agent.get('/api/v1/zoomrooms');
     expect(res.body).toEqual([{ 'id': '1', 'room_name': 'Cobalt' }, { 'id': '2', 'room_name': 'Goodland' }, { 'id': '3', 'room_name': 'Copper' }]);
   });
+  
 
   it('GET/ should display a list of all community zoomrooms for alumni, who have a cohort id of 3', async () => {
     const userResponse = await agent
