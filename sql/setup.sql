@@ -32,7 +32,7 @@ CREATE TABLE zoom_rooms (
 
 INSERT INTO zoom_rooms(room_type, room_name, join_link, meeting_id)
 VALUES
-('metal', 'Cobalt', 'http whatever', 9040374817),
+('metal', 'Cobalt', 'http whatever', 3852948650),
 ('classroom', 'Goodland', 'http whatever2', 9040374817),
 ('metal', 'Copper', 'http whatever', 9040374817),
 ('metal', 'Aluminum', 'http whatever', 9040374817),
