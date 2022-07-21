@@ -24,35 +24,155 @@ describe('Cohort Tests', () => {
       {
         'id': '1',
         'name': 'pending approval',
-        'rooms':[],
+        'rooms': []
       },
       {
         'id': '2',
         'name': 'staff',
-        'rooms':[
-          'Goodland',
+        'rooms': [
           'Copper',
+          'Aluminum',
+          'Beryllium',
+          'Brass',
+          'Bronze',
+          'Chrome',
+          'Gold',
+          'Iron',
+          'Lithium',
+          'Mercury',
+          'Nickel',
+          'Atrium',
           'Cobalt',
-        ],
+          'Goodland',
+          'Community Room',
+          'Career Development Room',
+          'Lecture',
+          'Career Development Room',
+          'Lecture',
+          'Community Room',
+          'Danis Room',
+          'Atrium',
+          'Open Work Room',
+          'Danis Room',
+          'Zinc',
+          'Xenon',
+          'Quiet Room',
+          'Vibranium',
+          'Titanium',
+          'TA Room',
+          'Silver',
+          'Mythril',
+          'TA Room',
+          'TA Room 2',
+          'Cobalt',
+          'Oxygen',
+          'Osmium',
+          'Alumni Room',
+          'Goodland',
+          'Alumni Room',
+          'TA Room 2',
+          'TA Room',
+          'Quiet Room',
+          'Open Work Room',
+          'Copper'
+        ]
       },
       {
         'id': '3',
         'name': 'alumni',
-        'rooms':[],
+        'rooms': [
+          'Alumni Room',
+          'Open Work Room',
+          'Community Room',
+          'Career Development Room'
+        ]
       },
       {
         'id': '4',
         'name': 'feb 2022',
-        'rooms':[
-          'Goodland',
+        'rooms': [
+          'Community Room',
+          'Career Development Room',
           'Cobalt',
-        ],
+          'Goodland',
+          'Lithium',
+          'Copper',
+          'Iron',
+          'Lecture',
+          'TA Room',
+          'Gold',
+          'TA Room 2',
+          'Quiet Room',
+          'Open Work Room'
+        ]
       },
       {
         'id': '5',
         'name': 'jan 2022',
-        'rooms':[],
+        'rooms': [
+          'Community Room',
+          'Beryllium',
+          'Bronze',
+          'Open Work Room',
+          'TA Room 2',
+          'Career Development Room',
+          'TA Room',
+          'Brass',
+          'Quiet Room'
+        ]
       },
+      {
+        'id': '6',
+        'name': 'april 2022',
+        'rooms': [
+          'TA Room 2',
+          'Goodland',
+          'Silver',
+          'Titanium',
+          'Vibranium',
+          'Xenon',
+          'Zinc',
+          'Career Development Room',
+          'Community Room',
+          'Open Work Room',
+          'Quiet Room',
+          'TA Room'
+        ]
+      },
+      {
+        'id': '7',
+        'name': 'june 2022',
+        'rooms': [
+          'TA Room',
+          'Open Work Room',
+          'TA Room 2',
+          'Osmium',
+          'Nickel',
+          'Community Room',
+          'Chrome',
+          'Quiet Room',
+          'Goodland',
+          'Career Development Room'
+        ]
+      },
+      {
+        'id': '8',
+        'name': 'july 2022',
+        'rooms': [
+          'Aluminum',
+          'TA Room 2',
+          'Cobalt',
+          'TA Room',
+          'Quiet Room',
+          'Open Work Room',
+          'Community Room',
+          'Career Development Room',
+          'Danis Room',
+          'Mythril',
+          'Oxygen',
+          'Mercury'
+        ]
+      }
     ]
     );
   });

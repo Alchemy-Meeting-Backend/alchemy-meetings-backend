@@ -31,7 +31,6 @@ Updates the Alchemeetings Back End to make it cleaner and more user-friendly.
 # Resources
 - Zoom API: https://marketplace.zoom.us/docs/guides/build/
 - GitHub Oauth: https://docs.github.com/en/organizations/restricting-access-to-your-organizations-data/approving-oauth-apps-for-your-organization
-- Metal rooms info: https://alchemycodelab.slite.com/p/gFE9sZn9n/Metal-Rooms-Info 
 - Current Alchemeetings site: https://alchemeetings.alchemycodelab.io/
 - Existing Alchemeetings BE: https://github.com/alchemycodelab/alchemeetings-be
 
