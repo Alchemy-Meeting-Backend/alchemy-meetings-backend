@@ -13,15 +13,7 @@ describe('User Tests', () => {
 
   const agent = request.agent(app);
 
-
-  it('GET /github denies access to unauthenticated users', async () => {
-    const res = await request(app).get('/api/v1/github');
-    expect(res.status).toEqual(401);
-    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
-
-  });
-
-  it('GET /github should return a list of users with authorizeAdmin', async () => {
+  it('GET /github should return a list of users for admin users', async () => {
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -41,7 +33,30 @@ describe('User Tests', () => {
     expect(res.body).toEqual(expected);
   });
 
-  it('GET /github/:id should get a user', async () => {
+
+  it('GET /github denies access to unauthenticated users trying to see list of all users', async () => {
+    const res = await request(app).get('/api/v1/github');
+    expect(res.status).toEqual(401);
+    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+
+  });
+
+  // it('GET /github denies access to unauthorized users trying to see list of all users', async () => {
+  //   await agent
+  //     .get('/api/v1/github/callback?code=42')
+  //     .redirects(1);
+    
+  //   const res = await agent.get('/api/v1/github/');
+
+  //   const userData = await GithubUser.getAll();
+
+  //   expect(res.status).toEqual(403);
+  //   expect(res.body.message).toEqual('You cannot see this page!');
+
+  // });
+
+
+  it('GET /github/:id should get a particular user', async () => {
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -50,6 +65,20 @@ describe('User Tests', () => {
     const expected = await GithubUser.getById(1);
     expect(res.body).toEqual(expected);
   });
+
+
+  it('GET /github/:id should deny access to non-authenticated users trying to get a particular user', async () => {
+    const res = await request(app).get('/api/v1/github/1');
+    expect(res.status).toEqual(401);
+    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+  });
+
+  // it('GET /github/:id should deny access to non-authorized users trying to get a particular user', async () => {
+  //   const res = await request(app).get('/api/v1/github/1');
+  //   expect(res.status).toEqual(403);
+  //   expect(res.body.message).toEqual('You cannot see this page!');
+  // });
+
 
   it('PUT should update a users cohort_id', async () => {
     await agent
@@ -64,6 +93,25 @@ describe('User Tests', () => {
     expect(res.body).toEqual(expected);
   });
 
+
+  it('PUT should deny access to non-authenticated users trying to update a users cohort_id', async () => {
+    const res = await request(app)
+      .put('/api/v1/github/1')
+      .send({ cohort_id: 3, role: 'student' });
+
+    expect(res.status).toEqual(401);
+    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+  });
+
+  // it('PUT should deny access to non-authorized users trying to update a users cohort_id', async () => {
+  //   const res = await request(app)
+  //     .put('/api/v1/github/1')
+  //     .send({ cohort_id: 3, role: 'student' });
+
+  //   expect(res.status).toEqual(403);
+  //   expect(res.body.message).toEqual('You cannot see this page!');
+  // });
+
   it('DELETE should delete a user', async () => {
     await agent
       .get('/api/v1/github/callback?code=42')
@@ -73,6 +121,20 @@ describe('User Tests', () => {
     expect(res.status).toEqual(200);
     expect(res.body.id).toEqual('1');
   });
+
+  it('DELETE should deny access to non-authenticated users trying to delete a user', async () => {
+    const res = await request(app).delete('/api/v1/github/1');
+    expect(res.status).toEqual(401);
+    expect(res.body.message).toEqual('You must be signed in to continue!!??!');
+  });
+
+
+  // it('DELETE should deny access to non-authorized users trying to delete a user', async () => {
+  //   const res = await request(app).delete('/api/v1/github/1');
+  //   expect(res.status).toEqual(403);
+  //   expect(res.body.message).toEqual('You cannot see this page!');
+  // });
+
 
   it('GET /github should return a list of pending users', async () => {
     await agent
