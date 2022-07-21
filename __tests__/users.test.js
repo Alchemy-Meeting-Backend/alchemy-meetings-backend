@@ -41,12 +41,20 @@ describe('User Tests', () => {
 
   });
 
-  // it('GET /github denies access to unauthorized users trying to see list of all users', async () => {
-  //   const res = await request(app).get('/api/v1/github');
-  //   expect(res.status).toEqual(403);
-  //   expect(res.body.message).toEqual('You cannot see this page!');
+  it('GET /github denies access to unauthorized users trying to see list of all users', async () => {
+    await agent
+    console.log('agent', agent);
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+    
+    const res = await agent.get('/api/v1/github/');
 
-  // });
+    const userData = await GithubUser.getAll();
+
+    expect(res.status).toEqual(403);
+    expect(res.body.message).toEqual('You cannot see this page!');
+
+  });
 
 
   it('GET /github/:id should get a particular user', async () => {
