@@ -8,7 +8,7 @@ DROP TABLE if EXISTS cohorts_zoom_rooms CASCADE;
 
 CREATE TABLE cohorts (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  name TEXT NOT NULL
+  name TEXT
 );
 
 INSERT INTO cohorts(name)
