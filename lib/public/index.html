@@ -24,36 +24,13 @@
         </thead>
         <tbody class="table-row-group">
           <tr class="border-2">
-            <td class="table-cell p-3"><pre>/users</pre></td>
-            <td class="table-cell p-3 text-center">GET</td>
-            <td class="table-cell p-3">
-              Returns a list of all github-linked users
-            </td>
-            <td class="table-cell p-3">
-              <a href="/users" target="_blank" class="text-blue-700"
-                >List Users</a
-              >
-            </td>
-          </tr>
-          <tr class="border-2">
-            <td class="table-cell p-3"><pre>/cohorts</pre></td>
-            <td class="table-cell p-3 text-center">GET</td>
-            <td class="table-cell p-3">
-              Returns a list of all cohorts
-            </td>
-            <td class="table-cell p-3">
-              <a href="/cohorts" target="_blank" class="text-blue-700"
-                >List Cohorts</a
-              >
-            </td>
-          <tr class="border-2">
             <td class="table-cell p-3"><pre>/zoomrooms</pre></td>
             <td class="table-cell p-3 text-center">GET</td>
             <td class="table-cell p-3">
-              Returns a list of all Zoom rooms
+              Returns a list of Zoom rooms available to the user
             </td>
             <td class="table-cell p-3">
-              <a href="/cohorts" target="_blank" class="text-blue-700"
+              <a href="/api/v1/zoomrooms" target="_blank" class="text-blue-700"
                 >List Zoom rooms</a
               >
             </td>
@@ -80,40 +57,52 @@
 
         <tbody class="table-row-group">
           <tr class="border-2">
+            <td class="table-cell p-3"><pre>/users</pre></td>
+            <td class="table-cell p-3 text-center">GET</td>
+            <td class="table-cell p-3">
+              Returns a list of all github-linked users
+            </td>
+            <td class="table-cell p-3">
+              <a href="/api/v1/github" target="_blank" class="text-blue-700"
+                >List Users</a
+              >
+            </td>
+          </tr>
+          <tr class="border-2">
+            <td class="table-cell p-3"><pre>/cohorts</pre></td>
+            <td class="table-cell p-3 text-center">GET</td>
+            <td class="table-cell p-3">
+              Returns a list of all cohorts
+            </td>
+            <td class="table-cell p-3">
+              <a href="/api/v1/cohorts" target="_blank" class="text-blue-700"
+                >List Cohorts</a
+              >
+            </td>
+          <tr class="border-2">
             <td class="table-cell p-3"><pre>/user/:id</pre></td>
             <td class="table-cell p-3 text-center">GET</td>
             <td class="table-cell p-3">
               Returns a particular github-linked user
             </td>
             <td class="table-cell p-3">
-              <a href="/users/1" target="_blank" class="text-blue-700"
+              <a href="/api/v1/github/1" target="_blank" class="text-blue-700"
                 >User by id</a
               >
             </td>
           </tr>
           <tr class="border-2">
-            <td class="table-cell p-3"><pre>/cohorts/:cohort_id</pre></td>
+            <td class="table-cell p-3"><pre>/cohorts/:id</pre></td>
             <td class="table-cell p-3 text-center">GET</td>
             <td class="table-cell p-3">
               Returns a particular cohort
             </td>
             <td class="table-cell p-3">
-              <a href="/cohorts/1" target="_blank" class="text-blue-700"
+              <a href="/api/v1/cohorts/1" target="_blank" class="text-blue-700"
                 >Cohort by id</a
               >
             </td>
-          <tr class="border-2">
-            <td class="table-cell p-3"><pre>/zoomrooms/:cohort_id</pre></td>
-            <td class="table-cell p-3 text-center">GET</td>
-            <td class="table-cell p-3">
-              Returns Zoom rooms associated with a particular cohort
-            </td>
-            <td class="table-cell p-3">
-              <a href="/zoomrooms/1" target="_blank" class="text-blue-700"
-                >List Zoom rooms by cohort</a
-              >
-            </td>
-          </tr>
+          
 
         </tbody>
       </table>
