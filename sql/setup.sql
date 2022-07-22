@@ -8,7 +8,7 @@ DROP TABLE if EXISTS cohorts_zoom_rooms CASCADE;
 
 CREATE TABLE cohorts (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  name TEXT NOT NULL
+  name TEXT
 );
 
 INSERT INTO cohorts(name)
@@ -198,6 +198,8 @@ VALUES
 (31, 2),
 (22, 2),
 (23, 2),
-(24, 2);
+(24, 2),
+(22, 4),
+(31, 2);
 
 
