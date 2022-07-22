@@ -12,7 +12,9 @@ describe.skip('Zoom Room Tests', () => {
 
   const agent = request.agent(app);
 
+fanalTesting
   it('GET/ should display a list of zoomrooms associated with a users cohort id for authenticated users', async () => {
+
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -24,6 +26,7 @@ describe.skip('Zoom Room Tests', () => {
       { id: '2', room_name: 'Goodland' },
       { id: '3', room_name: 'Copper' }
     ]);
+
   });
 
 
@@ -67,11 +70,13 @@ describe.skip('Zoom Room Tests', () => {
     await agent
       .delete('/api/v1/github/sessions');
 
+
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
     const res = await agent.get('/api/v1/zoomrooms');
     expect(res.body).toEqual([{ 'id': '1', 'room_name': 'Cobalt' }, { 'id': '2', 'room_name': 'Goodland' }, { 'id': '3', 'room_name': 'Copper' }]);
+
   });
   
 
