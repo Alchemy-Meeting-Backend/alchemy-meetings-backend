@@ -228,17 +228,38 @@ describe('Cohort Tests', () => {
     expect(res.status).toEqual(401);
   });
 
-  // it('POST/ should denying access to non-authorized users trying to create a new cohort', async () => {
-  //   const res = await request(app).post('/api/v1/cohorts').send({
-  //     name: 'June 2022',
-  //   });
-  //   expect(res.body.message).toEqual('You cannot see this page!');
-  //   expect(res.status).toEqual(403);
-  // });
+  it('POST/ should denying access to non-authorized users trying to create a new cohort', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 3,
+        role: 'student'
+      };
+    });
+
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+    const res = await agent.post('/api/v1/cohorts').send({
+      name: 'June 2022',
+    });
+    expect(res.body.message).toEqual('You cannot see this page!');
+    expect(res.status).toEqual(403);
+  });
 
 
 
   it('PUT/UPDATE/id should update a cohorts name', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 2,
+        role: 'student'
+      };
+    });
+
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -260,16 +281,38 @@ describe('Cohort Tests', () => {
   });
 
 
-  // it('PUT/UPDATE/id should deny access to non-authorized user trying to update a cohorts name', async () => {
-  //   const res = await request(app)
-  //     .put('/api/v1/cohorts/1')
-  //     .send({ name: 'December 2022' });
-  //   expect(res.status).toEqual(403);
-  //   expect(res.body.message).toEqual('You cannot see this page!');
-  // });
+  it('PUT/UPDATE/id should deny access to non-authorized user trying to update a cohorts name', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 3,
+        role: 'student'
+      };
+    });
+
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+
+    const res = await agent
+      .put('/api/v1/cohorts/1')
+      .send({ name: 'December 2022' });
+    expect(res.status).toEqual(403);
+    expect(res.body.message).toEqual('You cannot see this page!');
+  });
 
 
   it('GET should return a cohort by id', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 2,
+        role: 'student'
+      };
+    });
+
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -286,11 +329,24 @@ describe('Cohort Tests', () => {
   });
 
 
-  // it('GET should deny access to non-authorized users trying to see a cohort by id', async () => {
-  //   const res = await request(app).get('/api/v1/cohorts/1');
-  //   expect(res.status).toEqual(403);
-  //   expect(res.body.message).toEqual('You cannot see this page!');
-  // });
+  it('GET should deny access to non-authorized users trying to see a cohort by id', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 3,
+        role: 'student'
+      };
+    });
+
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+
+    const res = await agent.get('/api/v1/cohorts/1');
+    expect(res.status).toEqual(403);
+    expect(res.body.message).toEqual('You cannot see this page!');
+  });
 
   afterAll(() => {
     pool.end();
