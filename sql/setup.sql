@@ -83,7 +83,8 @@ VALUES
 ('Frank Delgado', 'frankdelgado@gmail.com.com', 1, ' Student'),
 ('Rebecca Charleston', 'rebeccacharleston@gmail.com', 2, 'Instructor'),
 ('Christine Black', 'christineblack@gmail.com', 3, 'Alumni'),
-('hdsteineke', null, 3, 'Alumni');
+('hdsteineke', null, 2, 'Alumni');
+
 
 CREATE TABLE cohorts_zoom_rooms (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
