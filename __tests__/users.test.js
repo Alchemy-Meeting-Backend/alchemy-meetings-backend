@@ -11,7 +11,7 @@ jest.mock('../lib/services/github', () => {
   };
 });
 
-describe.skip('User Tests', () => {
+describe('User Tests', () => {
   beforeEach(() => {
     return setup(pool);
   });
@@ -19,6 +19,14 @@ describe.skip('User Tests', () => {
   const agent = request.agent(app);
 
   it('GET /github should return a list of users for admin users', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 2,
+        role: 'student'
+      };
+    });
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -54,22 +62,36 @@ describe.skip('User Tests', () => {
 
   });
 
-  // it('GET /github denies access to unauthorized users trying to see list of all users', async () => {
-  //   await agent
-  //     .get('/api/v1/github/callback?code=42')
-  //     .redirects(1);
+  it('GET /github denies access to unauthorized users trying to see list of all users', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 3,
+        role: 'student'
+      };
+    });
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
     
-  //   const res = await agent.get('/api/v1/github/');
+    const res = await agent.get('/api/v1/github/');
 
-  //   const userData = await GithubUser.getAll();
+    expect(res.status).toEqual(403);
+    expect(res.body.message).toEqual('You cannot see this page!');
 
-  //   expect(res.status).toEqual(403);
-  //   expect(res.body.message).toEqual('You cannot see this page!');
-
-  // });
+  });
 
 
   it('GET /github/:id should get a particular user', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'Elliot Darkness',
+        email: 'elliot@darkness.com',
+        cohort_id: 2,
+        role: 'TA'
+      };
+    });
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -86,14 +108,36 @@ describe.skip('User Tests', () => {
     expect(res.body.message).toEqual('You must be signed in to continue!!??!');
   });
 
-  // it('GET /github/:id should deny access to non-authorized users trying to get a particular user', async () => {
-  //   const res = await request(app).get('/api/v1/github/1');
-  //   expect(res.status).toEqual(403);
-  //   expect(res.body.message).toEqual('You cannot see this page!');
-  // });
+  it('GET /github/:id should deny access to non-authorized users trying to get a particular user', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 3,
+        role: 'student'
+      };
+    });
+
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+
+    const res = await agent.get('/api/v1/github/1');
+    expect(res.status).toEqual(403);
+    expect(res.body.message).toEqual('You cannot see this page!');
+  });
 
 
   it('PUT should update a users cohort_id', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 2,
+        role: 'student'
+      };
+    });
+
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -116,16 +160,38 @@ describe.skip('User Tests', () => {
     expect(res.body.message).toEqual('You must be signed in to continue!!??!');
   });
 
-  // it('PUT should deny access to non-authorized users trying to update a users cohort_id', async () => {
-  //   const res = await request(app)
-  //     .put('/api/v1/github/1')
-  //     .send({ cohort_id: 3, role: 'student' });
+  it('PUT should deny access to non-authorized users trying to update a users cohort_id', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 3,
+        role: 'student'
+      };
+    });
 
-  //   expect(res.status).toEqual(403);
-  //   expect(res.body.message).toEqual('You cannot see this page!');
-  // });
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+
+    const res = await agent
+      .put('/api/v1/github/1')
+      .send({ cohort_id: 3, role: 'student' });
+
+    expect(res.status).toEqual(403);
+    expect(res.body.message).toEqual('You cannot see this page!');
+  });
 
   it('DELETE should delete a user', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 2,
+        role: 'student'
+      };
+    });
+
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
@@ -142,11 +208,24 @@ describe.skip('User Tests', () => {
   });
 
 
-  // it('DELETE should deny access to non-authorized users trying to delete a user', async () => {
-  //   const res = await request(app).delete('/api/v1/github/1');
-  //   expect(res.status).toEqual(403);
-  //   expect(res.body.message).toEqual('You cannot see this page!');
-  // });
+  it('DELETE should deny access to non-authorized users trying to delete a user', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 3,
+        role: 'student'
+      };
+    });
+
+    await agent
+      .get('/api/v1/github/callback?code=42')
+      .redirects(1);
+
+    const res = await agent.delete('/api/v1/github/1');
+    expect(res.status).toEqual(403);
+    expect(res.body.message).toEqual('You cannot see this page!');
+  });
 
 
   it('GET /github should return a list of pending users', async () => {
