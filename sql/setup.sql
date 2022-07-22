@@ -61,7 +61,8 @@ VALUES
 ('other', 'Quiet Room', 'http whatever2'),
 ('other', 'TA Room', 'http whatever2'),
 ('other', 'TA Room 2', 'http whatever2'),
-('other', 'Alumni Room', 'http whatever2');
+('other', 'Alumni Room', 'http whatever2'),
+('other', 'Staff Meeting Room', 'http whatever2');
 
 
 CREATE TABLE github_users (
@@ -197,6 +198,8 @@ VALUES
 (31, 2),
 (22, 2),
 (23, 2),
-(24, 2);
+(24, 2),
+(22, 4),
+(31, 2);
 
 

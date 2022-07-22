@@ -10,8 +10,10 @@
   <body>
     <main class="p-4 w-1/2 m-auto">
       <header id="header">
+        <img src="./alchemy.png" alt="logo" />
         <h1 class="text-lg">Alchemeetings</h1>
         <h3 class="text-xs">Alchemizing the backend since 2022</h3>
+        <h3 class="text-xs">Student Routes</h3>
       </header>
       <table class="table border-2 mt-4">
         <thead class="table-header-group border-2">
@@ -35,12 +37,8 @@
               >
             </td>
           </tr>
-
         </tbody>
       </table>
-
-
-
 
       <header id="header">
         <h3 class="text-xs">Admin Routes</h3>
@@ -71,9 +69,7 @@
           <tr class="border-2">
             <td class="table-cell p-3"><pre>/cohorts</pre></td>
             <td class="table-cell p-3 text-center">GET</td>
-            <td class="table-cell p-3">
-              Returns a list of all cohorts
-            </td>
+            <td class="table-cell p-3">Returns a list of all cohorts</td>
             <td class="table-cell p-3">
               <a href="/api/v1/cohorts" target="_blank" class="text-blue-700"
                 >List Cohorts</a
@@ -95,29 +91,13 @@
           <tr class="border-2">
             <td class="table-cell p-3"><pre>/cohorts/:id</pre></td>
             <td class="table-cell p-3 text-center">GET</td>
-            <td class="table-cell p-3">
-              Returns a particular cohort
-            </td>
+            <td class="table-cell p-3">Returns a particular cohort</td>
             <td class="table-cell p-3">
               <a href="/api/v1/cohorts/3" target="_blank" class="text-blue-700"
                 >Cohort by id</a
               >
             </td>
           </tr>
-          <tr class="border-2">
-            <td class="table-cell p-3"><pre>/cohorts/</pre></td>
-            <td class="table-cell p-3 text-center">POST---Fix me!!!</td>
-            <td class="table-cell p-3">
-              Admin can create a new cohort
-            </td>
-            <td class="table-cell p-3">
-              <a href="/api/v1/cohorts/7" target="_blank" class="text-blue-700"
-                >Make a new cohort</a
-              >
-            </td>
-          </tr>
-          
-
         </tbody>
       </table>
     </main>

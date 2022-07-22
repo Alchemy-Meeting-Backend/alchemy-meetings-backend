@@ -5,7 +5,7 @@ const app = require('../lib/app');
 
 jest.mock('../lib/services/github'); 
 
-describe('Zoom Room Tests', () => {
+describe.skip('Zoom Room Tests', () => {
   beforeEach(() => {
     return setup(pool);
   });
