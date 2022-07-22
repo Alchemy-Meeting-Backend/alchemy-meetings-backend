@@ -2,10 +2,16 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const github = require('../lib/services/github');
 
-jest.mock('../lib/services/github'); 
+jest.mock('../lib/services/github', () => {
+  return {
+    exchangeCodeForToken: jest.fn((code) => `MOCK_TOKEN_FOR_CODE_${code}`),
+    getGitHubProfile: jest.fn(),
+  };
+});
 
-describe.skip('Zoom Room Tests', () => {
+describe('Zoom Room Tests', () => {
   beforeEach(() => {
     return setup(pool);
   });
@@ -56,22 +62,32 @@ describe.skip('Zoom Room Tests', () => {
   });
 
 
-  it('GET/ should display a list of all zoomrooms for staff, who have a cohort id of 2', async () => {
+  it.only('GET/ should display a list of all zoomrooms for staff, who have a cohort id of 2', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 2,
+        role: 'student'
+      };
+    });
+
+
     const userResponse = await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
     
-    await agent
-      .put(`/api/v1/github/${userResponse.body.id}`)
-      .send({ cohort_id: 2 });
+    // await agent
+    //   .put(`/api/v1/github/${userResponse.body.id}`)
+    //   .send({ cohort_id: 2 });
 
-    await agent
-      .delete('/api/v1/github/sessions');
+    // await agent
+    //   .delete('/api/v1/github/sessions');
 
 
-    await agent
-      .get('/api/v1/github/callback?code=42')
-      .redirects(1);
+    // await agent
+    //   .get('/api/v1/github/callback?code=42')
+    //   .redirects(1);
     const res = await agent.get('/api/v1/zoomrooms');
     expect(res.body).toEqual([{ 'id': '1', 'room_name': 'Cobalt' }, { 'id': '2', 'room_name': 'Goodland' }, { 'id': '3', 'room_name': 'Copper' }]);
 

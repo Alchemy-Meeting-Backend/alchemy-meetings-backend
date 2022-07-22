@@ -32,7 +32,7 @@ CREATE TABLE zoom_rooms (
 
 INSERT INTO zoom_rooms(room_type, room_name, join_link, meeting_id)
 VALUES
-('metal', 'Cobalt', 'http whatever', 3852948650),
+('metal', 'Cobalt', 'http whatever', 9040374817),
 ('classroom', 'Goodland', 'http whatever2', 9040374817),
 ('metal', 'Copper', 'http whatever', 9040374817),
 ('metal', 'Aluminum', 'http whatever', 9040374817),
@@ -83,8 +83,7 @@ VALUES
 ('Frank Delgado', 'frankdelgado@gmail.com.com', 1, ' Student'),
 ('Rebecca Charleston', 'rebeccacharleston@gmail.com', 2, 'Instructor'),
 ('Christine Black', 'christineblack@gmail.com', 3, 'Alumni'),
-('hdsteineke', null, 2, 'TA');
-('SusanBird', null, 2, 'Admin');
+('hdsteineke', null, 2, 'Admin');
 
 CREATE TABLE cohorts_zoom_rooms (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
