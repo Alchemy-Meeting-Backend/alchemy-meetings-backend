@@ -17,12 +17,13 @@ describe('Zoom Room Tests', () => {
   });
 
   const agent = request.agent(app);
+
   it('GET/ should display a list of zoomrooms associated with a users cohort id for authenticated users', async () => {
     github.getGitHubProfile.mockImplementation(() => {
       return {
         login: 'someperson',
         email: 'fakeusername@faux.net',
-        cohort_id: 9,
+        cohort_id: 1,
         role: 'student'
       };
     });
