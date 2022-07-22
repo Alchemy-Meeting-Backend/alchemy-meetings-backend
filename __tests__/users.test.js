@@ -11,7 +11,7 @@ jest.mock('../lib/services/github', () => {
   };
 });
 
-describe.skip('User Tests', () => {
+describe('User Tests', () => {
   beforeEach(() => {
     return setup(pool);
   });
@@ -19,6 +19,14 @@ describe.skip('User Tests', () => {
   const agent = request.agent(app);
 
   it('GET /github should return a list of users for admin users', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 2,
+        role: 'student'
+      };
+    });
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
