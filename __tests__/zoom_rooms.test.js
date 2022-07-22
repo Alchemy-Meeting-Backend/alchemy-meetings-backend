@@ -11,8 +11,6 @@ describe.skip('Zoom Room Tests', () => {
   });
 
   const agent = request.agent(app);
-
-fanalTesting
   it('GET/ should display a list of zoomrooms associated with a users cohort id for authenticated users', async () => {
 
     await agent

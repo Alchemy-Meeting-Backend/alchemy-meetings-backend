@@ -11,7 +11,7 @@ jest.mock('../lib/services/github', () => {
 });
 const github = require('../lib/services/github');
 
-describe('Cohort Tests', () => {
+describe.skip('Cohort Tests', () => {
   beforeEach(() => {
     return setup(pool);
   });
