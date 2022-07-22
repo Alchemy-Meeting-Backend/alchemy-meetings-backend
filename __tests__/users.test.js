@@ -78,6 +78,14 @@ describe('User Tests', () => {
 
 
   it('GET /github/:id should get a particular user', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'Elliot Darkness',
+        email: 'elliot@darkness.com',
+        cohort_id: 2,
+        role: 'TA'
+      };
+    });
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
