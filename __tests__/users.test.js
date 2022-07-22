@@ -183,6 +183,15 @@ describe('User Tests', () => {
   });
 
   it('DELETE should delete a user', async () => {
+    github.getGitHubProfile.mockImplementation(() => {
+      return {
+        login: 'someperson',
+        email: 'fakeusername@faux.net',
+        cohort_id: 2,
+        role: 'student'
+      };
+    });
+
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
