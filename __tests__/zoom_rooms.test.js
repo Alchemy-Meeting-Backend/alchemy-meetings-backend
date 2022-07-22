@@ -11,7 +11,7 @@ jest.mock('../lib/services/github', () => {
   };
 });
 
-describe('Zoom Room Tests', () => {
+describe.skip('Zoom Room Tests', () => {
   beforeEach(() => {
     return setup(pool);
   });
@@ -62,7 +62,7 @@ describe('Zoom Room Tests', () => {
   });
 
 
-  it.only('GET/ should display a list of all zoomrooms for staff, who have a cohort id of 2', async () => {
+  it('GET/ should display a list of all zoomrooms for staff, who have a cohort id of 2', async () => {
     github.getGitHubProfile.mockImplementation(() => {
       return {
         login: 'someperson',
