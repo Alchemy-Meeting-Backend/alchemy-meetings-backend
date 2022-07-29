@@ -12,7 +12,7 @@ describe('Zoom Room Tests', () => {
 
   const agent = request.agent(app);
 
-  it.skip('GET/ should display a list of zoomrooms associated with a users cohort id for authenticated users', async () => {
+  it.only('GET/ should display a list of zoomrooms associated with a users cohort id for authenticated users', async () => {
     await agent
       .get('/api/v1/github/callback?code=42')
       .redirects(1);
